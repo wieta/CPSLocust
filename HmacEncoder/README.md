@@ -7,8 +7,8 @@
   ```
 
 ## File contains lines in format
-```
-login password
-login password
-login password
-```
+  ```
+  login password
+  login password
+  login password
+  ```
