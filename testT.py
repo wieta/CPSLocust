@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*- 
 import sys 
-from cpsProviders import Providers as cps 
+from providers.cpsProviders import Providers as cps 
 import simplejson as json 
 if len(sys.argv) > 1 and sys.argv[1] == '1': 
     loop = True 
@@ -10,13 +10,13 @@ comments = True
 def exit(): 
     sys.exit(0) 
 def switch(option): 
-    switch={1:'default_customer',2:'customer',3:'client'} 
+    switch={1:'default_customer',2:'customer',3:'client',4:'cardAuthorization'} 
     if option > len(switch.keys()): 
         raise Exception() 
     return switch[option] 
     
 def returnJson(): 
-    if comments: print('1: Default customer\n2: Full customer\n3: Client to register\n0: Exit\n:',end='') 
+    if comments: print('1: Default customer\n2: Full customer\n3: Client to register\n4: Card pin\n0: Exit\n:',end='') 
     try: 
         option = int(input()) 
         if not option: exit() 
