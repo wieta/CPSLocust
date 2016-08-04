@@ -211,6 +211,11 @@ class ClientCardNumberPin(BaseProvider):
                             "3843320442795":{"password":"$9ZLgBdv","hmac":"GyBIMfuU3yLPZSUW84lymGEHbO8CZ1wZ8S2G/PggvTQ="},
                             "9491537475170":{"password":"^&0iA6fu","hmac":"bGzHXXBy4e/v27BRfzYKgqDzrwHSpb3SeKpFzZLiaxA="},
                             }
+      def defaultCardPinAuthorizationData(cls):
+            return random.sample(cls.cardPinAuthorizationData.items(),1)[0]
+
+      def defaultCardPasswordAuthorizationData(cls):
+            return random.sample(cls.cardPasswordAuthorizationData.items(),1)[0]
 
       def cardNumberAuthorization(cls):
             return cls.random_element(cls.cardNumber)
