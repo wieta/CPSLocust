@@ -30,8 +30,6 @@ class CustomerProvider(BaseProvider):
 			'PreferredStore': self.generator.random_number(4)
         }
 
-        d = dict(d, **self.generator.simple_profile())
-
         if len(fields) > 0:
             d = dict((k, v) for (k, v) in d.items() if k in fields)
 
