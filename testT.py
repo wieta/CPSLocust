@@ -10,13 +10,13 @@ comments = True
 def exit(): 
     sys.exit(0) 
 def switch(option): 
-    switch={1:'default_customer',2:'customer',3:'client',4:'cardAuthorization'} 
+    switch={1:'default_customer',2:'customer',3:'client',4:'defaultCardPinAuthorizationData',5:'defaultCardPasswordAuthorizationData'} 
     if option > len(switch.keys()): 
         raise Exception() 
     return switch[option] 
     
 def returnJson(): 
-    if comments: print('1: Default customer\n2: Full customer\n3: Client to register\n4: Card pin\n0: Exit\n:',end='') 
+    if comments: print('1: Default customer\n2: Full customer\n3: Customer to register\n4: Customer authorization pin\n5: Customer authorization password 0: Exit\n:',end='') 
     try: 
         option = int(input()) 
         if not option: exit() 
