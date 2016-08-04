@@ -4,6 +4,7 @@ import simplejson as json
 class ClientRegisterProvider(BaseProvider):
 	
 	def client(self, fields=None):
+		cardNumber = self.generator.cardNumberAuthorization()
 		d = {
 		"Identity":
 		{
@@ -20,10 +21,10 @@ class ClientRegisterProvider(BaseProvider):
 		},
 		"LoyaltyCard":
 		{
-		"CardNumber": self.generator.ean13(),
+		"CardNumber": cardNumber,
 		"PhoneNumber": self.generator.phone_number(),
 		"Gender": self.generator.random_element(["F", "M", "U"]),
-		"CardPinHMac": "3f729ea140a769400985ade930f695452cf622fd0dd3ca69218319333ca2386c",
+		"CardPinHMac": self.generator.cardPinHmacAuthorization(cardNumber),
 		"Wallets":[],
 		}
 		}
