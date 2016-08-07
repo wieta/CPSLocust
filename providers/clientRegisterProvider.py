@@ -29,4 +29,7 @@ class ClientRegisterProvider(BaseProvider):
 		}
 		}
 		
+        if len(fields) > 0:
+            d = dict((k, v) for (k, v) in d.items() if k in fields)
+
 		return d
