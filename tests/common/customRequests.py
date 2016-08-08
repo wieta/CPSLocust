@@ -12,7 +12,7 @@ class Requests(HttpLocust):
 		if sessionId is None:
 			return self.client.post(url, json=data, headers={'Content-type': 'application/json'}, catch_response=True)
 		else:
-			return self.client.post(url, headers={'Content-type': 'application/json', 'Authorization': str(sessionId)}, catch_response=True)
+			return self.client.post(url, json=data, headers={'Content-type': 'application/json', 'Authorization': str(sessionId)}, catch_response=True)
 	
 	def Put(self, url, data={}, sessionId = None):
 		if sessionId is None:
@@ -22,9 +22,9 @@ class Requests(HttpLocust):
 	
 	def Path(self, url, data={}, sessionId = None):
 		if sessionId is None:
-			return self.client.patch(url, json=data), headers={'Content-type': 'application/json'}, catch_response=True)
+			return self.client.patch(url, json=data, headers={'Content-type': 'application/json'}, catch_response=True)
 		else:
-			return self.client.patch(url, headers={'Content-type': 'application/json', 'Authorization': str(sessionId)}, catch_response=True)
+			return self.client.patch(url, json=data, headers={'Content-type': 'application/json', 'Authorization': str(sessionId)}, catch_response=True)
 	
 	def Delete(self, url, sessionId = None):
 		if sessionId is None:

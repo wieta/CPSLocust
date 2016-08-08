@@ -1,9 +1,10 @@
 from faker.providers import BaseProvider
-import simplejson as json
+
 
 class ClientRegisterProvider(BaseProvider):
 	
 	def client(self, fields=None):
+
 		cardNumber = self.generator.cardNumberAuthorization()
 		d = {
 		"Identity":
@@ -29,7 +30,7 @@ class ClientRegisterProvider(BaseProvider):
 		}
 		}
 		
-        if len(fields) > 0:
-            d = dict((k, v) for (k, v) in d.items() if k in fields)
+   		#if len(fields) > 0:
+   			#d = dict((k, v) for (k, v) in d.items() if k in fields)
 
 		return d
