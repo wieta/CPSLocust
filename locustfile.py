@@ -12,15 +12,12 @@ class UserBehavior(TaskSet):
 	@task
 	def test1(self):
 		cardNumber = alcsRequests.registerClient(self)[0]
-		sessionId = webStickers.login(self, cardNumber)['SessionId']
-		print (sessionId)
-		if sessionId == -1:
-			print (sessionId)
-			sessionId = webStickers.loginPass(self, cardNumber)['SessionId']	
-			ifMatch = webStickers.getCustomer(self, sessionId)
-			print (ifMatch)
-		else:
-			webStickers.changePassword(self, sessionId, cardNumber)
+		#sessionId = webStickers.login(self, cardNumber)['SessionId']
+	
+		sessionId = webStickers.loginPass(self, cardNumber)['SessionId']	
+		ifMatch = webStickers.getCustomer(self, sessionId)
+		print (ifMatch)
+		webStickers.changePassword(self, sessionId, cardNumber)
 		
 
 		#webStickers.changeClientData(self, ifMatch)
