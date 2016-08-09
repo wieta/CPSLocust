@@ -9,16 +9,19 @@ import time
 #import response.webSticker.responses as webResp
 
 class UserBehavior(TaskSet):
-	@task(1)
+	@task
 	def test1(self):
-		alcsRequests.registerClient(self)
-		#time.sleep(20)
-		#sessionId = webStickers.login(self)['SessionId']
-		#changePasswordRequired = webStickers.login(self)['IsPasswordChangeRequired']
-		#if changePasswordRequired:
-		#	webStickers.changePassword(self, sessionId)
-		#ifMatch = webStickers.getCustomer(self, sessionId)['ETag']
-		#webStickers.getCustomer(self, sessionId)
+		cardNumber = alcsRequests.registerClient(self)[0]
+		sessionId = webStickers.login(self, cardNumber)['SessionId']
+		print (sessionId)
+		if sessionId == -1:
+			print (sessionId)
+			sessionId = webStickers.loginPass(self, cardNumber)['SessionId']	
+			ifMatch = webStickers.getCustomer(self, sessionId)
+			print (ifMatch)
+		else:
+			webStickers.changePassword(self, sessionId, cardNumber)
+		
 
 		#webStickers.changeClientData(self, ifMatch)
 		#alcsRequests.activateClient(self)

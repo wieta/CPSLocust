@@ -6,13 +6,27 @@ from faker import Factory
 
 class LocustWebStickers():
 	fakeData = cps.all() 
-	def login(self):
-		cardNumber = LocustWebStickers.fakeData.cardNumberAuthorization()
+	def login(self, cardNumber):
 		cardPin = LocustWebStickers.fakeData.cardPinAuthorization(cardNumber)
 		url = '/loyalty/v1/login'
 		data ={
 				"Login": cardNumber,
   				"Password": cardPin
+			  }
+		with requests.Post(self, url, data) as response:
+			if response.status_code == 200:
+				response.success()
+				return response.json()
+			else:
+				response.failure(u.responseFail(response))
+				return {"SessionId": -1}
+
+	def loginPass(self, cardNumber):
+		cardPass = LocustWebStickers.fakeData.cardPasswordAuthorization(cardNumber)
+		url = '/loyalty/v1/login'
+		data ={
+				"Login": cardNumber,
+  				"Password": cardPass
 			  }
 		with requests.Post(self, url, data) as response:
 			if response.status_code == 200:
@@ -34,9 +48,10 @@ class LocustWebStickers():
 		with requests.Get(self, url, sessionId) as response:
 			if response.status_code == 200:
 				response.success()
-				return (response.headers.get('ETag'))
+				return int(response.headers.get('ETag'))
 			else:
 				response.failure(u.responseFail(response))
+				return -1
 	
 	def changeClientData(self, sessionId, ifMatch):
 		url = '/loyalty/v1/customers/current'
@@ -82,8 +97,7 @@ class LocustWebStickers():
 			else:
 				response.failure(u.responseFail(response))
 
-	def changePassword(self, sessionId):
-		cardNumber = LocustWebStickers.fakeData.cardNumberAuthorization()
+	def changePassword(self, sessionId, cardNumber):
 		cardPassword = LocustWebStickers.fakeData.cardPasswordAuthorization(cardNumber)
 		cardOldPassword = LocustWebStickers.fakeData.cardPinAuthorization(cardNumber)
 		url = '/loyalty/v1/customers/current/password'

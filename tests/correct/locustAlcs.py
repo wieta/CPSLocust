@@ -15,9 +15,9 @@ class LocustAlcs():
 		with requests.Post(self, url, data) as response:
 			if response.status_code == 200:
 				response.success()
-				return response.json()
 			else:
 				response.failure(u.responseFail(response))
+			return [cardNumber, response.json()]
 
 	def activateClient(self):
 		cardNumber = LocustAlcs.fakeData.client('CardNumber').get('CardNumber')
