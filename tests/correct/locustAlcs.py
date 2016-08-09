@@ -1,41 +1,51 @@
-from locust import HttpLocust, TaskSet, task
-from providers.cpsProviders import Providers as cps
-import utility
-import json
 from tests.common.customRequests import Requests as requests
+import json
+from providers.cpsProviders import Providers as cps
+import utility as u 
+from faker import Factory
 
-import response.webSticker.responses as webResp
+class LocustAlcs():
+	fakeData = cps.all()
+	
 
-class UserBehavior(TaskSet):
-	@task(1)
 	def registerClient(self):
-		url = '/alcs/loyalty/v1/loyalty-cards/cardNumber'
-		data = #faker customer 
-		with requests.Put(self, url, data) as response:
-			response.success()
+		data = LocustAlcs.fakeData.client()
+		cardNumber = data.get('LoyaltyCard').get('CardNumber')
+		url = '/alcs/loyalty/v1/loyalty-cards/' + str(cardNumber)
+		with requests.Post(self, url, data) as response:
+			if response.status_code == 200:
+				response.success()
+				return response.json()
+			else:
+				response.failure(u.responseFail(response))
 
-	@task(1)
 	def activateClient(self):
-		url = '/alcs/loyalty/v1/loyalty-cards/cardNumber/activate'
-		data = #fake phonenumber
-		with requests.Post(self, url, data) as response:
-			response.success()
+		cardNumber = LocustAlcs.fakeData.client('CardNumber').get('CardNumber')
+		phoneNumber = LocustAlcs.fakeData.customer('PhoneNumber').get('PhoneNumber')
+		url = '/alcs/loyalty/v1/loyalty-cards/' + str(cardNumber) + '/activate'
+		data = phonenumber
+		with requests.Put(self, url, data) as response:
+			if response.status_code == 204:
+				response.success()
+			else:
+				response.failure(u.responseFail(response))
 
-	@tast(1)
 	def changeClientPhoneNumber(self):
-		url = '/alcs/loyalty/v1/loyalty-cards/cardNumber'
-		data = #fake phonenumber
-		with requests.Path(self, url, data) as response:
-			response.success()
+		cardNumber = LocustAlcs.fakeData.client('CardNumber').get('CardNumber')
+		phoneNumber = LocustAlcs.fakeData.customer('PhoneNumber').get('PhoneNumber')
+		url = '/alcs/loyalty/v1/loyalty-cards/' + str(cardNumber)
+		data = phonenumber
+		with requests.Put(self, url, data) as response:
+			if response.status_code == 204:
+				response.success()
+			else:
+				response.failure(u.responseFail(response))
 
-	@test(1)
 	def lockClient(self):
-		url = '/alcs/loyalty/v1/loyalty-cards/cardNumber/lock'
-		data = {}
-		with requests.Post(self, url, data) as response:
-			response.success()
-
-class WebsiteUser(HttpLocust):
-	task_set = UserBehavior
-	min_wait=5000
-	max_wait=9000
+		cardNumber = LocustAlcs.fakeData.client('CardNumber').get('CardNumber')
+		url = '/alcs/loyalty/v1/loyalty-cards/'+ str(cardNumber) + '/lock'
+		with requests.Put(self, url, data) as response:
+			if response.status_code == 204:
+				response.success()
+			else:
+				response.failure(u.responseFail(response))

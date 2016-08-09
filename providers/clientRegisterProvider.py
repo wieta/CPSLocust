@@ -1,11 +1,15 @@
 from faker.providers import BaseProvider
-
+import itertools
 
 class ClientRegisterProvider(BaseProvider):
 	
 	def client(self, fields=None):
 
 		cardNumber = self.generator.cardNumberAuthorization()
+		
+		if fields is None:
+			fields = []
+
 		d = {
 		"Identity":
 		{
@@ -23,14 +27,14 @@ class ClientRegisterProvider(BaseProvider):
 		"LoyaltyCard":
 		{
 		"CardNumber": cardNumber,
-		"PhoneNumber": self.generator.phone_number(),
+		"PhoneNumber": self.generator.numerify('48#########'),
 		"Gender": self.generator.random_element(["F", "M", "U"]),
 		"CardPinHMac": self.generator.cardPinHmacAuthorization(cardNumber),
 		"Wallets":[],
 		}
 		}
-		
-   		#if len(fields) > 0:
-   			#d = dict((k, v) for (k, v) in d.items() if k in fields)
+
+		if len(fields) > 0:
+			d = dict((k, v) for (k, v) in d.items() if k in fields)
 
 		return d

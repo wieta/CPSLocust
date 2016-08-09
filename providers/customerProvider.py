@@ -15,7 +15,7 @@ class CustomerProvider(BaseProvider):
         d = {
             'FirstName' : self.generator.first_name(),
 			'LastName' : self.generator.last_name(),
-			'PhoneNumber': self.generator.phone_number(),
+			'PhoneNumber': self.generator.numerify('48#########'),
 			'Email': self.generator.email(),
 			'Street':self.generator.street_name(),
 			'HouseNumber': self.generator.building_number(),
