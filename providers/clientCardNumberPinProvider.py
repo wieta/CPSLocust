@@ -227,7 +227,7 @@ class ClientCardNumberPin(BaseProvider):
             return cls.cardPinAuthorizationData[card]['hmac']
 
       def cardPasswordAuthorization(cls, card):
-            return cls.cardPasswordAuthorizationData[card]['pin']
+            return cls.cardPasswordAuthorizationData[card]['password']
 
       def cardPasswordHmacAuthorization(cls, card):
             return cls.cardPasswordAuthorizationData[card]['hmac']

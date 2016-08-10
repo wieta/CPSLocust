@@ -1,7 +1,8 @@
-import simplejson as json
+
+import simplejson as sjson
 
 def toJson(object):
-	return json.dumps(object, indent = True, ensure_ascii=False, encoding="utf-8")
+	return sjson.dumps(object, indent = True, ensure_ascii=False, encoding="utf-8")
 
 def printJson(object):
 	print(toJson(object))
@@ -9,4 +10,7 @@ def printJson(object):
 def doWhile(func, loop=False):
 	func()
 	while loop:
-		func()
+		func(
+)
+def responseFail(response = {}):
+	return [response.status_code, toJson(response.text)]
