@@ -8,12 +8,18 @@ class LocustAlcs():
 	fakeData = cps.all()
 	
 
-	def registerClient(self):
+	def registerClient(self, cardNumber, hmac):
 		data = LocustAlcs.fakeData.client()
-		cardNumber = data.get('LoyaltyCard').get('CardNumber')
+		data['LoyaltyCard']['CardPinHMac']=hmac
+		data['LoyaltyCard']['CardNumber']=cardNumber
+		print(data)
+		#cardNumber = data.get('LoyaltyCard').get('CardNumber')
 		url = '/alcs/loyalty/v1/loyalty-cards/' + str(cardNumber)
-		with requests.Post(self, url, data) as response:
+		print(url)
+		with requests.Put(self, url, data) as response:
+			print(response)
 			if response.status_code == 200:
+				print('ok')
 				response.success()
 			else:
 				response.failure(u.responseFail(response))

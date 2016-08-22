@@ -27,9 +27,9 @@ class ClientRegisterProvider(BaseProvider):
 		"LoyaltyCard":
 		{
 		"CardNumber": cardNumber,
-		"PhoneNumber": self.generator.numerify('48#########'),
+		"PhoneNumber": "",#self.generator.numerify('48#########'),
 		"Gender": self.generator.random_element(["F", "M", "U"]),
-		"CardPinHMac": self.generator.cardPinHmacAuthorization(cardNumber),
+		"CardPinHMac": "",#self.generator.cardPinHmacAuthorization(cardNumber),
 		"Wallets":[],
 		}
 		}
