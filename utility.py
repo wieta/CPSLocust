@@ -12,5 +12,7 @@ def doWhile(func, loop=False):
 	while loop:
 		func(
 )
-def responseFail(response = {}):
+def responseFail(response = {}, time=''):
+	if response.status_code == 0:
+		return [response.status_code, 'Timeout ' + str(time)]
 	return [response.status_code, toJson(response.text)]

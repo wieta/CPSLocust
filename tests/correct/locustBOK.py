@@ -3,17 +3,19 @@ import json
 from providers.cpsProviders import Providers as cps
 import utility as u 
 from faker import Factory
+from random import randint
 
 class LocustBOK():
 	fakeData = cps.all() 
-	def login(self, cardNumber):
-		cardPin = LocustWebStickers.fakeData.cardPinAuthorization(cardNumber)
+	def changePassword(self, cardNumber):
+		password = randint(0, 1000000)
+		#cardPin = LocustWebStickers.fakeData.cardPinAuthorization(cardNumber)
 		url = '/bok/loyalty/v1/loyalty-cards/' + cardNumber + '/customer/password'
 		data ={
-  				"Password": "1235"
+  				"Password": str(password)
 			  }
 		with requests.Post(self, url, data) as response:
-			if response.status_code == 200:
+			if response.status_code == 204:
 				response.success()
 				return response.json()
 			else:

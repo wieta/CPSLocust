@@ -15,19 +15,22 @@ class CustomerProvider(BaseProvider):
         d = {
             'FirstName' : self.generator.first_name(),
 			'LastName' : self.generator.last_name(),
-			'PhoneNumber': self.generator.numerify('48#########'),
+			'PhoneNumber': str(self.generator.numerify('4860#######')),
 			'Email': self.generator.email(),
 			'Street':self.generator.street_name(),
-			'HouseNumber': self.generator.building_number(),
-			'ApartmentNumber': self.generator.building_number(),
+			'HouseNumber': str(self.generator.building_number()),
+			'ApartmentNumber': str(self.generator.building_number()),
 			'PostalCode': self.generator.postcode(),
 			'City': self.generator.city(),
-			'Status': 'Active',
-			'PersonalDataProcessingConsent': self.generator.boolean(),
+			'PersonalDataProcessingConsent': True,
 			'EmailCommunicationConsent': self.generator.boolean(),
-			'SmsCommunicationConsent': self.generator.boolean(),
-			'PreferredLanguage': self.generator.locale(),
-			'PreferredStore': self.generator.random_number(4)
+			'SmsCommunicationConsent': True,
+			'AlcoholMarketingConsent': True,
+			'PreferredLanguage': "pl-PL",
+			'DateOfBirth': self.generator.date("%Y-%m-%d"),
+			'Gender': 'Male',
+			'Password': '12345678'
+			#'PreferredStore': str(self.generator.random_number(4))
         }
 
         if len(fields) > 0:
